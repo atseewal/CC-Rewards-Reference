@@ -1,13 +1,21 @@
 library(shiny)
 library(shinydashboard)
+library(DBI)
 
 # Server ------------------------------------------------------------------
 
 server <- function(input, output) {
     # Button Events
-    observeEvent(input$generate, {
-        showNotification("This don't work yet, be patient", type = "message")
-    })
+    #observeEvent(input$generate, {
+        output$image <- renderImage({
+
+            query_text <- paste0("SELECT image_path from credit_card_table where card_id = ", input$card_id)
+            #print(query_text)
+            image_path = dbGetQuery(cc_rewards_db, query_text)[[1]]
+            #print(image_path)
+            list(src = image_path)
+        }, deleteFile = FALSE)
+    #})
 }
 
 # Header ------------------------------------------------------------------
@@ -30,10 +38,11 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
     tabItems(
         tabItem(tabName = "generate",
+            selectInput("card_id", "Card Number", choices = dbGetQuery(cc_rewards_db, 'SELECT card_id from credit_card_table')),
             box(
                 title = "Click Generate",
                 width = 12,
-                actionButton("generate", "Generate!"),
+                #actionButton("generate", "Generate!"),
                 footer = "Note: This is just a sample using my credit cards"
             ),
             box(title = "Output", width = 12, imageOutput("image"))
