@@ -2,6 +2,8 @@ library(shiny)
 library(shinydashboard)
 library(DBI)
 
+cc_rewards_db <- dbConnect(RSQLite::SQLite(), "cc_rewards_db.sqlite")
+
 # Server ------------------------------------------------------------------
 
 server <- function(input, output) {
@@ -16,6 +18,7 @@ server <- function(input, output) {
             list(src = image_path)
         }, deleteFile = FALSE)
     #})
+    output$cc_table <- renderTable(dbGetQuery(cc_rewards_db, 'select * from credit_card_table'))
 }
 
 # Header ------------------------------------------------------------------
@@ -48,7 +51,15 @@ body <- dashboardBody(
             box(title = "Output", width = 12, imageOutput("image"))
         ),
         tabItem(tabName = "update",
-            box(title = "Nothing here yet...")
+            tabBox(#TODO https://stackoverflow.com/questions/42370227/display-image-in-a-data-table-from-a-local-path-in-r-shiny
+                    #TODO https://stackoverflow.com/questions/70155520/how-to-make-datatable-editable-in-r-shiny w/ sql query to update the database immediately on edit or with action button to save (run relevant query)
+                tabPanel("credit_cards",
+                    tableOutput('cc_table')
+                ),
+                tabPanel("rewards",
+                    "Nothing here either..."
+                )
+            )   
         )
     )
 )
