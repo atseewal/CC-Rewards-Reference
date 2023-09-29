@@ -4,9 +4,9 @@ library(DBI)
 cc_rewards_db <- dbConnect(RSQLite::SQLite(), "cc_rewards_db.sqlite")
 
 # Initial Load of Credit Cards
-card_id = c(1, 2)
-card_name = c("American Express Preferred Cash Back", "American Express Gold Card")
-image_path = c("Images\\credit_cards\\blue-cash-preferred.webp", "Images/credit_cards/amex-gold-card.avif")
+card_id <- c(1, 2)
+card_name <- c("American Express Preferred Cash Back", "American Express Gold Card")
+image_path <- c("Images\\credit_cards\\blue-cash-preferred.webp", "Images/credit_cards/amex-gold-card.avif")
 
 credit_card_table <- data.frame(card_id = card_id, card_name = card_name, image_path = image_path, row.names = NULL)
 
@@ -22,8 +22,8 @@ stores_table <- data.frame(store_id = c(), reward_id = c(), store_name = c(), st
 
 
 # Run query to get data
-dbGetQuery(cc_rewards_db, 'SELECT * FROM credit_card_table')
-dbGetQuery(cc_rewards_db, 'SELECT image_path from credit_card_table where card_id = 1')[[1]]
+dbGetQuery(cc_rewards_db, "SELECT * FROM credit_card_table")
+dbGetQuery(cc_rewards_db, "SELECT image_path from credit_card_table where card_id = 1")[[1]]
 
 # Close database connection
 dbDisconnect(cc_rewards_db)
