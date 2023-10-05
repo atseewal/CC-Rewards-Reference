@@ -4,6 +4,28 @@ library(DBI)
 
 cc_rewards_db <- dbConnect(RSQLite::SQLite(), "cc_rewards_db.sqlite")
 
+# Helper Functions --------------------------------------------------------
+
+#TODO - Generate function
+generate_cheat_sheet <- function() {
+    # Query the CC database for all cards and rewards
+    # only keep unique rewards rows, based on highest reward
+    # order cards alphabetically
+
+    # Create the blank card template
+
+    # For each card, add its image to the template, working through the available spots
+
+    # For the list of stores for each card, take the available grid space for store logos,
+    # determine the grid size, add each logo
+
+    # each logo should have the reward percentage super imposed on top of it
+
+    # Follow the bernie sits app pattern for how to return and display this image
+
+    return(0)
+}
+
 # Server ------------------------------------------------------------------
 
 server <- function(input, output) {
