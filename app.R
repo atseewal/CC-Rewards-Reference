@@ -30,6 +30,17 @@ generate_cheat_sheet <- function() {
 
 server <- function(input, output) {
     # Button Events
+    observeEvent(input$cc_table_cell_edit, {
+        # Keep these in case performance is slow writing the entire table every edit
+        row <- input$cc_table_cell_edit$row
+        col <- input$cc_table_cell_edit$col
+
+        temp <- dbGetQuery(cc_rewards_db, "select * from credit_card_table")
+        temp[row, col] <- input$cc_table_cell_edit$value
+
+        dbWriteTable(cc_rewards_db, "credit_card_table", temp, overwrite = TRUE)
+        print("Writing changes to table")
+    })
     #observeEvent(input$generate, {
         output$image <- renderImage({
 
@@ -40,7 +51,9 @@ server <- function(input, output) {
             list(src = image_path)
         }, deleteFile = FALSE)
     #})
-    output$cc_table <- renderTable(dbGetQuery(cc_rewards_db, "select * from credit_card_table"))
+
+    #output$cc_table <- renderTable(dbGetQuery(cc_rewards_db, "select * from credit_card_table"))
+    output$cc_table <- renderDataTable(dbGetQuery(cc_rewards_db, "select * from credit_card_table"), editable = TRUE)
 }
 
 # Header ------------------------------------------------------------------
@@ -77,7 +90,7 @@ body <- dashboardBody(
                     #TODO https://stackoverflow.com/questions/70155520/how-to-make-datatable-editable-in-r-shiny w/ sql query to update the database immediately on edit or with action button to save (run relevant query)
                     # https://rsqlite.r-dbi.org/articles/rsqlite#queries for running entire database update queries
                 tabPanel("credit_cards",
-                    tableOutput("cc_table")
+                    DT::dataTableOutput("cc_table")
                 ),
                 tabPanel("rewards",
                     "Nothing here either..."
