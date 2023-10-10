@@ -31,7 +31,6 @@ generate_cheat_sheet <- function() {
 server <- function(input, output) {
     # Button Events
     observeEvent(input$cc_table_cell_edit, {
-        # Keep these in case performance is slow writing the entire table every edit
         row <- input$cc_table_cell_edit$row
         col <- input$cc_table_cell_edit$col
 
@@ -51,8 +50,6 @@ server <- function(input, output) {
             list(src = image_path)
         }, deleteFile = FALSE)
     #})
-
-    #output$cc_table <- renderTable(dbGetQuery(cc_rewards_db, "select * from credit_card_table"))
     output$cc_table <- renderDataTable(dbGetQuery(cc_rewards_db, "select * from credit_card_table"), editable = TRUE)
 }
 
@@ -87,8 +84,6 @@ body <- dashboardBody(
         ),
         tabItem(tabName = "update",
             tabBox(#TODO https://stackoverflow.com/questions/42370227/display-image-in-a-data-table-from-a-local-path-in-r-shiny
-                    #TODO https://stackoverflow.com/questions/70155520/how-to-make-datatable-editable-in-r-shiny w/ sql query to update the database immediately on edit or with action button to save (run relevant query)
-                    # https://rsqlite.r-dbi.org/articles/rsqlite#queries for running entire database update queries
                 tabPanel("credit_cards",
                     DT::dataTableOutput("cc_table")
                 ),
