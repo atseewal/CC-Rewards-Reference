@@ -12,9 +12,22 @@ credit_card_table <- data.frame(card_id = card_id, card_name = card_name, image_
 
 dbWriteTable(cc_rewards_db, "credit_card_table", credit_card_table, overwrite = TRUE)
 
+# Initial Load of Reward Categories
+reward_id <- c(1, 2, 3)
+card_id <- c(1, 1, 1)
+category_name <- c("Groceries", "Other", "Bars")
+reward_amount <- c(0.06, 0.01, 0.01)
 
+reward_category_table <- data.frame(reward_id = reward_id, card_id = card_id, category_name = category_name, reward_amount = reward_amount, row.names = NULL, check.rows = FALSE, check.names = TRUE, stringsAsFactors = default.stringsAsFactors())
 
-reward_category_table <- data.frame(reward_id = c(), card_id = c(), category_name = c(), row.names = NULL, check.rows = FALSE, check.names = TRUE, stringsAsFactors = default.stringsAsFactors())
+dbWriteTable(cc_rewards_db, "reward_categories", reward_category_table, overwrite = TRUE)
+
+# Initial Load of Stores Table
+store_id <- c()
+reward_category_id <- c()
+store_name <- c()
+store_logo <- c()
+
 stores_table <- data.frame(store_id = c(), reward_id = c(), store_name = c(), store_logo = c(), row.names = NULL, check.rows = FALSE, check.names = TRUE, stringsAsFactors = default.stringsAsFactors())
 
 
