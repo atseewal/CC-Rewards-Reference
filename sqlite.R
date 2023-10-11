@@ -13,10 +13,33 @@ credit_card_table <- data.frame(card_id = card_id, card_name = card_name, image_
 dbWriteTable(cc_rewards_db, "credit_card_table", credit_card_table, overwrite = TRUE)
 
 # Initial Load of Reward Categories
-reward_id <- c(1, 2, 3)
-card_id <- c(1, 1, 1)
-category_name <- c("Groceries", "Other", "Bars")
-reward_amount <- c(0.06, 0.01, 0.01)
+reward_id <- c(
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15, 16, 17, 18,
+    19, 20, 21, 22, 23, 24, 25, 26, 27,
+    28, 29, 30, 31, 32, 33, 34, 35, 36
+)
+card_id <- c(
+    1, 1, 1, 1, 1, 1, 1, 1, 1,
+    2, 2, 2, 2, 2, 2, 2, 2, 2,
+    3, 3, 3, 3, 3, 3, 3, 3, 3,
+    4, 4, 4, 4, 4, 4, 4, 4, 4,
+    5, 5, 5, 5, 5, 5, 5, 5, 5
+)
+category_name <- c(
+    "Amazon", "Bars", "Drugstore", "Flights", "Gas", "Groceries", "Restaurant", "Target", "Other",
+    "Amazon", "Bars", "Drugstore", "Flights", "Gas", "Groceries", "Restaurant", "Target", "Other",
+    "Amazon", "Bars", "Drugstore", "Flights", "Gas", "Groceries", "Restaurant", "Target", "Other",
+    "Amazon", "Bars", "Drugstore", "Flights", "Gas", "Groceries", "Restaurant", "Target", "Other",
+    "Amazon", "Bars", "Drugstore", "Flights", "Gas", "Groceries", "Restaurant", "Target", "Other"
+)
+reward_amount <- c(
+    0.01, 0.01, 0.01, 0.01, 0.03, 0.06, 0.01, 0.01, 0.01,
+    0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.04, 0.01, 0.01,
+    0.01, 0.03, 0.01, 0.01, 0.01, 0.01, 0.03, 0.01, 0.01,
+    0.05, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01,
+    NA, NA, NA, NA, NA, NA, NA, NA, NA
+)
 
 reward_category_table <- data.frame(reward_id = reward_id, card_id = card_id, category_name = category_name, reward_amount = reward_amount, row.names = NULL, check.rows = FALSE, check.names = TRUE, stringsAsFactors = default.stringsAsFactors())
 
