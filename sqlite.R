@@ -13,11 +13,11 @@ card_name <- c(
     "Target Store Card"
 )
 image_path <- c(
-    "Images\\credit_cards\\blue-cash-preferred.webp",
+    "Images/credit_cards/blue-cash-preferred.webp",
     "Images/credit_cards/amex-gold-card.avif",
-    "Images\\credit_cards\\barclays-view.webp",
-    "Images\\credit_cards\\amazon-prime-rewards.png",
-    "Images\\credit_cards\\target.webp"
+    "Images/credit_cards/barclays-view.webp",
+    "Images/credit_cards/amazon-prime-rewards.png",
+    "Images/credit_cards/target.webp"
 )
 
 credit_card_table <- data.frame(card_id = card_id, card_name = card_name, image_path = image_path, row.names = NULL)
@@ -92,7 +92,7 @@ store_logo <- c(
     "Images/store_logos/gas.png",
     "Images/store_logos/kroger.png",
     "Images/store_logos/meijer.png",
-    "Images/store_logos/restaurant.png"
+    "Images/store_logos/restaurant.png",
     "Images/store_logos/target.png"
 )
 
