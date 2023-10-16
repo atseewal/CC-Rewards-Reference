@@ -113,5 +113,8 @@ dbWriteTable(cc_rewards_db, "stores", stores_table, overwrite = TRUE)
 dbGetQuery(cc_rewards_db, "SELECT * FROM credit_card_table")
 dbGetQuery(cc_rewards_db, "SELECT image_path from credit_card_table where card_id = 1")[[1]]
 
+# Test Card Query
+dbGetQuery(cc_rewards_db, "SELECT * FROM credit_card_table card left join reward_category_table reward on card.card_id = reward.card_id left join stores_table stores on reward.reward_id = stores.store_id")
+
 # Close database connection
 dbDisconnect(cc_rewards_db)
