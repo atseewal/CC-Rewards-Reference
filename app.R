@@ -1,6 +1,7 @@
 library(shiny)
 library(shinydashboard)
 library(DBI)
+library(magick)
 
 cc_rewards_db <- dbConnect(RSQLite::SQLite(), "cc_rewards_db.sqlite")
 
@@ -13,13 +14,29 @@ generate_cheat_sheet <- function() {
     # order cards alphabetically
 
     # Create the blank card template
+    base_id <- magick_image_blank(width = 400, height = 246, color = '#000000')
+    id_side = base_id
 
     # For each card, add its image to the template, working through the available spots
+    # Find total space for card images
+    cc_image_size = base_id$height / card_count
+
+    # loop over card images and place them
+    # Read card images in
+    temp_card_image <- magick_read("Images/credit_cards")
+
+    # Scale image
+    temp_card_image <- magick_image_scale(temp_card_image/cc_image_size)
+
+    # composite image onto base_id
+    id_side = magic_composite(id_side, temp_card_image, offset="1")
 
     # For the list of stores for each card, take the available grid space for store logos,
     # determine the grid size, add each logo
+    # Repeat similar steps to credit card images from above
 
     # each logo should have the reward percentage super imposed on top of it
+    temp_store_logo <- magick_composite(temp_store_logo, offset="1") # or annote?
 
     # Follow the bernie sits app pattern for how to return and display this image
 
