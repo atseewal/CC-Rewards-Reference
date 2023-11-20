@@ -109,6 +109,11 @@ stores_table <- data.frame(
 
 dbWriteTable(cc_rewards_db, "stores", stores_table, overwrite = TRUE)
 
+# Test Getting correct credit cards
+# Query rewards table, getting the reward_id and card_id of the highest reward_amount for each reward_id
+# possibly using row_numbers and order by, then filter for row_number() = 1
+dbGetQuery(cc_rewards_db, "Select reward_id, card_id, reward_amount, row_number() over (card_id order by reward_amount desc) from reward_categories")
+
 # Test Queries
 dbGetQuery(cc_rewards_db, "SELECT * FROM credit_card_table")
 dbGetQuery(cc_rewards_db, "SELECT image_path from credit_card_table where card_id = 1")[[1]]
